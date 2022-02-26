@@ -3,7 +3,6 @@ import {ApiTags} from "@nestjs/swagger";
 import {GetUsersFilterDto} from "./dto/get-users-filter.dto";
 import {UsersService} from "./users.service";
 import {Users} from "./users.entity";
-import {GetUser} from "./get-users.decorator";
 import {CreateUserDto} from "./dto/create-user.dto";
 import {BanUserDto} from "./dto/ban-user.dto";
 
@@ -19,8 +18,8 @@ export class UsersController {
 
     @Post('/register')
     //@ApiExcludeEndpoint() // Permets de cacher l'endpoint sur swagger.
-    createUser(@Body() createUserDto: CreateUserDto, @GetUser() users: Users) {
-        return this.usersService.createUser(createUserDto, users);
+    createUser(@Body() createUserDto: CreateUserDto) {
+        return this.usersService.createUser(createUserDto);
     }
 
     @Post('/login')
