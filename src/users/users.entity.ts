@@ -43,7 +43,7 @@ export class Users {
         default: UserStatusEnum.STATUS_AUTHORIZED
     })
     status: UserStatusEnum;
-
+  
     @Column()
     last_name: string;
 
