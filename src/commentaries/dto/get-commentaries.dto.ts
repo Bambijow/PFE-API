@@ -1,15 +1,15 @@
 import {ApiProperty} from "@nestjs/swagger";
-import {IsNumber, IsOptional} from "class-validator";
+import {IsOptional, IsString} from "class-validator";
 
 export class GetCommentariesDto {
 
     @ApiProperty({ required: false })
     @IsOptional()
-    @IsNumber()
-    id: number;
+    @IsString()
+    id: string;
 
     @ApiProperty({ required: false })
     @IsOptional()
-    @IsNumber()
-    resource_id: number;
+    @IsString()
+    resource_id: string;
 }
