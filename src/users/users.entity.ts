@@ -12,7 +12,7 @@ export class Users {
         entry_date: string,
         last_name: string,
         first_name: string,
-        age: number,
+        age: string,
         salt: string,
         password: string,
         banned_date: string
@@ -51,7 +51,7 @@ export class Users {
     first_name: string;
 
     @Column()
-    age: number;
+    age: string;
 
     @Column()
     salt: string;

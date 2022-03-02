@@ -40,6 +40,6 @@ export class CreateUserDto {
 
     @ApiProperty()
     @IsNotEmpty()
-    @IsNumber()
-    age: number;
+    @IsString()
+    age: string;
 }
