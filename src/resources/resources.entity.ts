@@ -15,10 +15,10 @@ export class Resources {
     @Column()
     date: string;
 
-    @Column('longtext', { nullable: true })
+    @Column('longtext',  { nullable: true })
     filesPath: string[];
 
-    @Column('text')
+    @Column('longtext')
     categories: string[];
 
     @Column()

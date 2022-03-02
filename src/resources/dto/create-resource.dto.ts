@@ -13,13 +13,11 @@ export class CreateResourceDto {
     content: string;
 
     @ApiProperty({ required: false })
-    @IsArray()
     @Type(() => String)
     @IsOptional()
     filesPath: string[];
 
     @ApiProperty()
-    @IsArray()
     @Type(() => String)
     categories: string[];
 
