@@ -1,8 +1,9 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {UserRoleEnum} from "./enums/user-role.enum";
 import {UserStatusEnum} from "./enums/user-status.enum";
 
 import * as bcrypt from 'bcrypt';
+import { Resources } from "src/resources/resources.entity";
 
 @Entity()
 export class Users {
@@ -68,6 +69,9 @@ export class Users {
         default: UserRoleEnum.ROLE_CITIZEN
     })
     role: UserRoleEnum;
+
+    @OneToMany((type) => Resources, (resource) => resource._, {onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    poster: Resources[];
 
     async validatePassword(password: string): Promise<boolean> {
         const hash = await bcrypt.hash(password, this.salt);

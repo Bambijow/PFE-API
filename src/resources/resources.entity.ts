@@ -1,4 +1,5 @@
-import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import { Users } from "src/users/users.entity";
+import {Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {Commentaries} from "../commentaries/commentaries.entity";
 
 @Entity()
@@ -27,8 +28,8 @@ export class Resources {
     @Column()
     views: number;
 
-    @Column()
-    poster: number;
+    @ManyToOne(() => Users, (user) => user.user_id, {onDelete: "CASCADE"})
+    _: Users;
 
     @OneToMany(() => Commentaries, (commentary) => commentary.resource,
         {

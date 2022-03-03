@@ -12,8 +12,9 @@ export class ResourcesRepository extends Repository<Resources> {
         const query = this.createQueryBuilder('resources');
 
         if(id) query.andWhere('resources.id = :id', { id });
-
+        query.relation('poster')
         try {
+            console.log(await query.getMany())
             return await query.getMany();
         } catch(error) {
             throw new InternalServerErrorException();
@@ -30,7 +31,7 @@ export class ResourcesRepository extends Repository<Resources> {
             date: `${Date.now()}`,
             active: false,
             views: 0,
-            poster
+            _: poster
         });
         try {
             await this.save(resource);

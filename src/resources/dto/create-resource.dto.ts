@@ -1,6 +1,7 @@
 import {ApiProperty} from "@nestjs/swagger";
 import {IsArray, IsNumber, IsOptional, IsString} from "class-validator";
 import {Type} from "class-transformer";
+import { Users } from "src/users/users.entity";
 
 export class CreateResourceDto {
 
@@ -22,6 +23,5 @@ export class CreateResourceDto {
     categories: string[];
 
     @ApiProperty()
-    @IsNumber()
-    poster: number;
+    poster: Users;
 }
