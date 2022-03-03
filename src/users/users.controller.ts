@@ -5,6 +5,7 @@ import {UsersService} from "./users.service";
 import {Users} from "./users.entity";
 import {CreateUserDto} from "./dto/create-user.dto";
 import {BanUserDto} from "./dto/ban-user.dto";
+import {LoginUserDto} from "./dto/login-user.dto";
 
 @Controller('users')
 @ApiTags('users')
@@ -24,9 +25,9 @@ export class UsersController {
 
     @Post('/login')
     loginUser(
-        @Body() createUserDto: CreateUserDto,
+        @Body() loginUserDto: LoginUserDto,
     ): Promise<{ accessToken: string }> {
-        return this.usersService.validateUser(createUserDto);
+        return this.usersService.validateUser(loginUserDto);
     }
 
     @Patch('/ban')

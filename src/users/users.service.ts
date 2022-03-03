@@ -6,6 +6,7 @@ import {CreateUserDto} from "./dto/create-user.dto";
 import {JwtPayload} from "./jwt/jwt-payload.interface";
 import {JwtService} from "@nestjs/jwt";
 import {BanUserDto} from "./dto/ban-user.dto";
+import {LoginUserDto} from "./dto/login-user.dto";
 
 @Injectable()
 export class UsersService {
@@ -24,10 +25,10 @@ export class UsersService {
     }
 
     async validateUser(
-        createUserDto: CreateUserDto,
+        loginUserDto: LoginUserDto,
     ): Promise<{ accessToken: string }> {
         try {
-            const email: string = await this.userRepository.login(createUserDto);
+            const email: string = await this.userRepository.login(loginUserDto);
             const payload: JwtPayload = { email };
             const accessToken: string = await this.jwtService.signAsync(payload);
             return { accessToken };

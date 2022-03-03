@@ -14,6 +14,7 @@ import * as bcrypt from "bcrypt";
 import {UserRoleEnum} from "./enums/user-role.enum";
 import {UserStatusEnum} from "./enums/user-status.enum";
 import {BanUserDto} from "./dto/ban-user.dto";
+import {LoginUserDto} from "./dto/login-user.dto";
 
 @EntityRepository(Users)
 export class UserRepository extends Repository<Users> {
@@ -67,8 +68,8 @@ export class UserRepository extends Repository<Users> {
         return bcrypt.hash(password, salt);
     }
 
-    async login(createUserDto: CreateUserDto): Promise<string> {
-        const { email, password } = createUserDto;
+    async login(loginUserDto: LoginUserDto): Promise<string> {
+        const { email, password } = loginUserDto;
         const user = await this.findOne({ email });
         if (user && (await user.validatePassword(password))) return email;
         throw new UnauthorizedException(
