@@ -17,7 +17,6 @@ export class ResourcesRepository extends Repository<Resources> {
         try {
             return await query.getMany();
         } catch(error) {
-            console.log(error);
             throw new InternalServerErrorException();
         }
     }
@@ -41,4 +40,6 @@ export class ResourcesRepository extends Repository<Resources> {
             throw new InternalServerErrorException()
         }
     }
+
+
 }
