@@ -4,6 +4,8 @@ import {ResourcesService} from "./resources.service";
 import {Resources} from "./resources.entity";
 import {ApiTags} from "@nestjs/swagger";
 import {GetResourceDto} from "./dto/get-resources.dto";
+import {Users} from "../users/users.entity";
+import {GetUser} from "../users/get-users.decorator";
 
 @Controller('resources')
 @ApiTags('resources')
@@ -17,7 +19,7 @@ export class ResourcesController {
     }
 
     @Post('')
-    createResource(@Body() createResourceDto: CreateResourceDto): Promise<Resources> {
-        return this.resourceService.createResource(createResourceDto);
+    createResource(@Body() createResourceDto: CreateResourceDto, @GetUser() user: Users): Promise<Resources> {
+        return this.resourceService.createResource(createResourceDto, user);
     }
 }

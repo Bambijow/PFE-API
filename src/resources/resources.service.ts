@@ -3,6 +3,7 @@ import {CreateResourceDto} from "./dto/create-resource.dto";
 import {ResourcesRepository} from "./resources.repository";
 import {Resources} from "./resources.entity";
 import {GetResourceDto} from "./dto/get-resources.dto";
+import {Users} from "../users/users.entity";
 
 @Injectable()
 export class ResourcesService {
@@ -13,7 +14,7 @@ export class ResourcesService {
         return this.resourcesRepository.getResources(getResourceDto);
     }
 
-    createResource(createResourceDto: CreateResourceDto): Promise<Resources> {
-        return this.resourcesRepository.createResource(createResourceDto);
+    createResource(createResourceDto: CreateResourceDto, user: Users): Promise<Resources> {
+        return this.resourcesRepository.createResource(createResourceDto, user);
     }
 }
