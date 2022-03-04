@@ -15,7 +15,7 @@ import { CategoriesModule } from './categories/categories.module';
         password: '',
         database: 'PFE',
         entities: ['dist/**/*.entity{.ts,.js}', 'node_modules/**/*.entity.js'],
-        synchronize: true,
+        synchronize: false,
       }),
       UsersModule,
       ResourcesModule,

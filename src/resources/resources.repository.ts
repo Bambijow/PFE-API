@@ -12,7 +12,7 @@ export class ResourcesRepository extends Repository<Resources> {
         const query = this.createQueryBuilder('resources');
 
         if(id) query.andWhere('resources.id = :id', { id });
-        query.relation('poster')
+        query.loadAllRelationIds({relations: ["_"]})
         try {
             console.log(await query.getMany())
             return await query.getMany();
