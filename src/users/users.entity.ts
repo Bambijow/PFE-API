@@ -70,8 +70,8 @@ export class Users {
     })
     role: UserRoleEnum;
 
-    @OneToMany((type) => Resources, (resource) => resource._, {onDelete: 'CASCADE', onUpdate: 'CASCADE'})
-    poster: Resources[];
+    @OneToMany(() => Resources, (resource) => resource._, {onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    resources: Resources[];
 
     async validatePassword(password: string): Promise<boolean> {
         const hash = await bcrypt.hash(password, this.salt);

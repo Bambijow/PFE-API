@@ -3,6 +3,7 @@ import {EntityRepository, Repository} from "typeorm";
 import {CreateResourceDto} from "./dto/create-resource.dto";
 import {InternalServerErrorException} from "@nestjs/common";
 import {GetResourceDto} from "./dto/get-resources.dto";
+import {Users} from "../users/users.entity";
 
 @EntityRepository(Resources)
 export class ResourcesRepository extends Repository<Resources> {
@@ -12,17 +13,16 @@ export class ResourcesRepository extends Repository<Resources> {
         const query = this.createQueryBuilder('resources');
 
         if(id) query.andWhere('resources.id = :id', { id });
-        query.loadAllRelationIds({relations: ["_"]})
+        query.loadAllRelationIds({relations: ['_']});
         try {
-            console.log(await query.getMany())
             return await query.getMany();
         } catch(error) {
             throw new InternalServerErrorException();
         }
     }
 
-    async createResource(createResourceDto: CreateResourceDto): Promise<Resources> {
-        const { title, content, filesPath, categories, poster } = createResourceDto;
+    async createResource(createResourceDto: CreateResourceDto, user: Users): Promise<Resources> {
+        const { title, content, filesPath, categories } = createResourceDto;
         const resource = this.create({
             title,
             content,
@@ -31,7 +31,7 @@ export class ResourcesRepository extends Repository<Resources> {
             date: `${Date.now()}`,
             active: false,
             views: 0,
-            _: poster
+            _: user
         });
         try {
             await this.save(resource);
@@ -40,4 +40,6 @@ export class ResourcesRepository extends Repository<Resources> {
             throw new InternalServerErrorException()
         }
     }
+
+
 }
