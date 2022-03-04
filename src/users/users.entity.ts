@@ -70,7 +70,7 @@ export class Users {
     })
     role: UserRoleEnum;
 
-    @OneToMany(() => Resources, (resource) => resource.user_id, {onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    @OneToMany(() => Resources, (resource) => resource._, {onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     resources: Resources[];
 
     async validatePassword(password: string): Promise<boolean> {

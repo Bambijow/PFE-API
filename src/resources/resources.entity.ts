@@ -29,7 +29,7 @@ export class Resources {
     views: number;
 
     @ManyToOne(() => Users, (user) => user.user_id, {onDelete: "CASCADE"})
-    user_id: Users;
+    _: Users;
 
     @OneToMany(() => Commentaries, (commentary) => commentary.resource,
         {
