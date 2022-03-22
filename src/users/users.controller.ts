@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Patch, Post, Query, UseGuards} from '@nestjs/common';
+import {Body, Controller, Get, Param, Patch, Post, Query, UseGuards} from '@nestjs/common';
 import {ApiTags} from "@nestjs/swagger";
 import {GetUsersFilterDto} from "./dto/get-users-filter.dto";
 import {UsersService} from "./users.service";
@@ -29,6 +29,12 @@ export class UsersController {
     @UseGuards(AuthGuard('jwt'))
     getUserProfile(@GetUser() user: Users): Users {
         return user;
+    }
+
+    @Get('resources/:id')
+    @UseGuards(AuthGuard('jwt'))
+    getUserResources(@Param('id') id: string): Promise<Users[]> {
+        return this.usersService.getUserResources(id);
     }
 
     @Post('/login')
