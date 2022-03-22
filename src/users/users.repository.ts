@@ -68,13 +68,13 @@ export class UserRepository extends Repository<Users> {
         return bcrypt.hash(password, salt);
     }
 
-    async getUserResources(user: Users): Promise<Users[]> {
+    async getUserResources(id: string): Promise<Users[]> {
         const resources = this.createQueryBuilder('user');
         resources.select([
             'user.user_id',
         ]);
         resources.leftJoinAndSelect('user.resources', 'resources');
-        resources.andWhere('user.user_id = :id', { id: user.user_id });
+        resources.andWhere('user.user_id = :id', { id });
         try {
             return await resources.getMany();
         } catch(error) {
