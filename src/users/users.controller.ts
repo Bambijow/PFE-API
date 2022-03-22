@@ -31,6 +31,12 @@ export class UsersController {
         return user;
     }
 
+    @Get('resources')
+    @UseGuards(AuthGuard('jwt'))
+    getUserResources(@GetUser() user: Users): Promise<Users[]> {
+        return this.usersService.getUserResources(user);
+    }
+
     @Post('/login')
     loginUser(
         @Body() loginUserDto: LoginUserDto,

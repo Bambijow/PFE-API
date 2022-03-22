@@ -20,6 +20,10 @@ export class UsersService {
         return this.userRepository.getUsers(filterDto);
     }
 
+    getUserResources(user: Users) {
+        return this.userRepository.getUserResources(user);
+    }
+
     createUser(createUserDto: CreateUserDto) {
         return this.userRepository.createUser(createUserDto);
     }
