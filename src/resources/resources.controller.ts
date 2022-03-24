@@ -1,4 +1,16 @@
-import {Body, Controller, Get, Param, Post, Query, Res, UploadedFile, UseGuards, UseInterceptors} from '@nestjs/common';
+import {
+    Body,
+    Controller, Delete,
+    Get,
+    Param,
+    Patch,
+    Post,
+    Query,
+    Res,
+    UploadedFile,
+    UseGuards,
+    UseInterceptors
+} from '@nestjs/common';
 import {CreateResourceDto} from "./dto/create-resource.dto";
 import {ResourcesService} from "./resources.service";
 import {Resources} from "./resources.entity";
@@ -28,6 +40,12 @@ export class ResourcesController {
         return this.resourceService.createResource(createResourceDto, user);
     }
 
+    @Delete(':id')
+    @UseGuards(AuthGuard('jwt'))
+    deleteResource(@Param('id') id: string) {
+        return this.resourceService.deleteResource(id);
+    }
+
     @Post('file/upload')
     @UseInterceptors(
         FileInterceptor('file', {
@@ -48,5 +66,10 @@ export class ResourcesController {
     @Get('getfile/:path')
     getUploadedFile(@Param('path') path, @Res() res) {
         return res.sendFile(path, { root: './files'});
+    }
+
+    @Patch('setactive/:id')
+    setActive(@Param('id') id: string) {
+        return this.resourceService.setActive(id);
     }
 }

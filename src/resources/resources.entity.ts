@@ -36,4 +36,8 @@ export class Resources {
             onDelete: 'CASCADE',
         })
     commentaries: Commentaries[];
+
+    isActive(): boolean {
+        return this.active;
+    }
 }
