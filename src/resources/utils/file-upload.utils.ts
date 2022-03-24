@@ -14,6 +14,19 @@ export const fileFilter = (req, file, callback) => {
     callback(null, true);
 }
 
+export const profilePictureFilter = (req, file, callback) => {
+    if (!file.originalname.match(/\.(png|jpeg|jpg)$/)) {
+        return callback(
+            new HttpException(
+                'Only PNG and JPG are allowed',
+                HttpStatus.BAD_REQUEST
+            ),
+            false
+        );
+    }
+    callback(null, true);
+}
+
 export const editFileName = (req, file, callback) => {
     const name = file.originalname.split('.')[0];
     const fileExtName = extname(file.originalname)

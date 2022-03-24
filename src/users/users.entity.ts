@@ -61,6 +61,9 @@ export class Users {
     password: string;
 
     @Column({ nullable: true })
+    profile_pic: string;
+
+    @Column({ nullable: true })
     banned_date: string;
 
     @Column({

@@ -41,6 +41,16 @@ export class UsersService {
         }
     }
 
+    async setProfilePicture(id: string, filename: string) {
+        try {
+            const user = await this.userRepository.findOne(id);
+            user.profile_pic = filename;
+            return await this.userRepository.save(user);
+        } catch(error) {
+            throw new InternalServerErrorException();
+        }
+    }
+
     async banUser(
         banUserDto: BanUserDto,
     ): Promise<Users> {
