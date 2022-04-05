@@ -22,6 +22,9 @@ import {AuthGuard} from "@nestjs/passport";
 import {FileInterceptor} from "@nestjs/platform-express";
 import {editFileName, profilePictureFilter} from "../resources/utils/file-upload.utils";
 import {diskStorage} from "multer";
+import {EditUserEmailDto} from "./dto/edit-user-email.dto";
+import {EditUserRoleDto} from "./dto/edit-user-role.dto";
+import {EditUserStatusDto} from "./dto/edit-user-status.dto";
 
 @Controller('users')
 @ApiTags('users')
@@ -86,5 +89,21 @@ export class UsersController {
     @Get('picture/:path')
     getUploadedFile(@Param('path') path, @Res() res) {
         return res.sendFile(path, { root: './files/profile_pic'});
+    }
+
+
+    @Patch('/email/:id')
+    editUserEmail(@Param('id') id: string, @Body() editEmailDto: EditUserEmailDto) {
+        return this.usersService.editUserEmail(id, editEmailDto);
+    }
+
+    @Patch('role/:id')
+    editUserRole(@Param('id') id: string, @Body() editUserRoleDto: EditUserRoleDto) {
+        return this.usersService.editUserRole(id, editUserRoleDto);
+    }
+
+    @Patch('status/:id')
+    editUserStatus(@Param('id') id: string, @Body() editUserStatusDto: EditUserStatusDto) {
+        return this.usersService.editUserStatus(id, editUserStatusDto);
     }
 }
