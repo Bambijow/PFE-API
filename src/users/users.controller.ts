@@ -1,4 +1,15 @@
-import {Body, Controller, Get, Param, Patch, Post, Query, UseGuards} from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Get,
+    Param,
+    Patch,
+    Post,
+    Query, Res,
+    UploadedFile,
+    UseGuards,
+    UseInterceptors
+} from '@nestjs/common';
 import {ApiTags} from "@nestjs/swagger";
 import {GetUsersFilterDto} from "./dto/get-users-filter.dto";
 import {UsersService} from "./users.service";
@@ -8,6 +19,9 @@ import {BanUserDto} from "./dto/ban-user.dto";
 import {LoginUserDto} from "./dto/login-user.dto";
 import {GetUser} from "./get-users.decorator";
 import {AuthGuard} from "@nestjs/passport";
+import {FileInterceptor} from "@nestjs/platform-express";
+import {editFileName, profilePictureFilter} from "../resources/utils/file-upload.utils";
+import {diskStorage} from "multer";
 
 @Controller('users')
 @ApiTags('users')
@@ -49,5 +63,28 @@ export class UsersController {
         @Body() banUserDto: BanUserDto,
     ): Promise<Users> {
         return this.usersService.banUser(banUserDto);
+    }
+
+    @Post('picture/upload/:id')
+    @UseInterceptors(
+        FileInterceptor('file', {
+            storage: diskStorage({
+                destination: './files/profile_pic',
+                filename: editFileName,
+            }),
+            fileFilter: profilePictureFilter
+        })
+    )
+    async uploadFile(@UploadedFile() file, @Param('id') id: string) {
+        await this.usersService.setProfilePicture(id, file.filename);
+        return {
+            originalname: file.originalname,
+            filename: file.filename,
+        };
+    }
+
+    @Get('picture/:path')
+    getUploadedFile(@Param('path') path, @Res() res) {
+        return res.sendFile(path, { root: './files/profile_pic'});
     }
 }

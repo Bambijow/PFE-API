@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import {CreateResourceDto} from "./dto/create-resource.dto";
 import {ResourcesRepository} from "./resources.repository";
 import {Resources} from "./resources.entity";
@@ -16,5 +16,19 @@ export class ResourcesService {
 
     createResource(createResourceDto: CreateResourceDto, user: Users): Promise<Resources> {
         return this.resourcesRepository.createResource(createResourceDto, user);
+    }
+
+    async deleteResource(id: string) {
+        const result = await this.resourcesRepository.delete(id);
+        if (result.affected === 0) throw new NotFoundException();
+    }
+
+    async setActive(id: string): Promise<Resources> {
+        const resource = await this.resourcesRepository.findOne(id);
+        if (!!resource) {
+            resource.active = true;
+            await this.resourcesRepository.save(resource);
+            return resource;
+        } else throw new NotFoundException();
     }
 }
