@@ -25,6 +25,7 @@ import {diskStorage} from "multer";
 import {EditUserEmailDto} from "./dto/edit-user-email.dto";
 import {EditUserRoleDto} from "./dto/edit-user-role.dto";
 import {EditUserStatusDto} from "./dto/edit-user-status.dto";
+import { Response } from 'express';
 
 @Controller('users')
 @ApiTags('users')
@@ -87,8 +88,14 @@ export class UsersController {
     }
 
     @Get('picture/:path')
-    getUploadedFile(@Param('path') path, @Res() res) {
-        return res.sendFile(path, { root: './files/profile_pic'});
+    getUploadedFile(@Param('path') path, @Res() res: Response) {
+        const fs = require("fs")
+        
+        if(fs.existsSync(`./files/profile_pic/${path}`)){
+            return res.sendFile(path, { root: './files/profile_pic'});
+        }else{
+            return res.sendFile("default.png", { root: './files/profile_pic'});
+        }
     }
 
 
