@@ -61,12 +61,16 @@ export class UsersService {
     }
 
     async editUserEmail(id: string, editEmailDto: EditUserEmailDto) {
-        const { email } = editEmailDto;
+        const { email, password } = editEmailDto;
         try {
             const user = await this.userRepository.findOne(id);
-            user.email = email;
-            await this.userRepository.save(user);
-            return user;
+            if (user.validatePassword(password)) {
+                user.email = email;
+                await this.userRepository.save(user);
+                return this.validateUser({ email, password });
+            } else {
+                throw new InternalServerErrorException("Password mismatch");
+            }
         } catch(error) {
             throw new InternalServerErrorException();
         }

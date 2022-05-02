@@ -12,7 +12,7 @@ import { CategoriesModule } from './categories/categories.module';
         host: 'localhost',
         port: 3306,
         username: 'root',
-        password: '',
+        password: 'db123',
         database: 'PFE',
         entities: ['dist/**/*.entity{.ts,.js}', 'node_modules/**/*.entity.js'],
         synchronize: false,

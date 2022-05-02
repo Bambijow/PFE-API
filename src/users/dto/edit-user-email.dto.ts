@@ -6,4 +6,8 @@ export class EditUserEmailDto {
     @ApiProperty()
     @IsString()
     email: string;
+
+    @ApiProperty()
+    @IsString()
+    password: string;
 }
