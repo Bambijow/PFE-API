@@ -72,4 +72,9 @@ export class ResourcesController {
     setActive(@Param('id') id: string) {
         return this.resourceService.setActive(id);
     }
+
+    @Patch('views/increment/:id')
+    incrementViews(@Param('id') id: string) {
+        return this.resourceService.incrementViews(id);
+    }
 }

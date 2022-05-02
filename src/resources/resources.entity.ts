@@ -40,4 +40,8 @@ export class Resources {
     isActive(): boolean {
         return this.active;
     }
+
+    incrementView() {
+        this.views += 1;
+    }
 }

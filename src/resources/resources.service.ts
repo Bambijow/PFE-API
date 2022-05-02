@@ -31,4 +31,13 @@ export class ResourcesService {
             return resource;
         } else throw new NotFoundException();
     }
+
+    async incrementViews(id: string): Promise<Resources> {
+        const resource = await this.resourcesRepository.findOne(id);
+        if (!!resource) {
+            resource.incrementView();
+            await this.resourcesRepository.save(resource);
+            return resource;
+        } else throw new NotFoundException();
+    }
 }
