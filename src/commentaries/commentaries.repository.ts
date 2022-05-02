@@ -11,7 +11,7 @@ export class CommentariesRepository extends Repository<Commentaries> {
     async getCommentaries(getCommentariesDto: GetCommentariesDto): Promise<Commentaries[]> {
         const { id, resource_id } = getCommentariesDto;
         const query = this.createQueryBuilder('commentaries');
-
+        query.loadAllRelationIds({relations: ['resource']});
         if(id) query.andWhere('commentaries.id = :id', { id });
         if(resource_id) query.andWhere('commentaries.resource = :resource_id', { resource_id });
 
