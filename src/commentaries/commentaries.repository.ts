@@ -3,6 +3,7 @@ import {EntityRepository, Repository} from "typeorm";
 import {GetCommentariesDto} from "./dto/get-commentaries.dto";
 import {InternalServerErrorException} from "@nestjs/common";
 import {CreateCommentaryDto} from "./dto/create-commentary.dto";
+import {Users} from "../users/users.entity";
 
 @EntityRepository(Commentaries)
 
@@ -14,10 +15,12 @@ export class CommentariesRepository extends Repository<Commentaries> {
         query.loadAllRelationIds({relations: ['resource']});
         if(id) query.andWhere('commentaries.id = :id', { id });
         if(resource_id) query.andWhere('commentaries.resource = :resource_id', { resource_id });
+        query.innerJoinAndMapOne('commentaries.poster', Users, 'user', 'user.user_id = commentaries.poster');
 
         try {
             return await query.getMany();
         } catch(error) {
+            console.log(error);
             throw new InternalServerErrorException();
         }
     }

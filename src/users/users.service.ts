@@ -64,7 +64,7 @@ export class UsersService {
         const { email, password } = editEmailDto;
         try {
             const user = await this.userRepository.findOne(id);
-            if (user.validatePassword(password)) {
+            if (await user.validatePassword(password)) {
                 user.email = email;
                 await this.userRepository.save(user);
                 return this.validateUser({ email, password });

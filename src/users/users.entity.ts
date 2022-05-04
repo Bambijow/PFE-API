@@ -54,10 +54,10 @@ export class Users {
     @Column()
     age: string;
 
-    @Column()
+    @Column({ select: false })
     salt: string;
 
-    @Column()
+    @Column({ select: false })
     password: string;
 
     @Column({ nullable: true })
@@ -72,6 +72,7 @@ export class Users {
         default: UserRoleEnum.ROLE_CITIZEN
     })
     role: UserRoleEnum;
+
 
     @OneToMany(() => Resources, (resource) => resource._, {onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     resources: Resources[];
