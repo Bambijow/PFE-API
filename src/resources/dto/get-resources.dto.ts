@@ -12,5 +12,10 @@ export class GetResourceDto {
     @ApiProperty({ required: false })
     @IsString()
     active: string;
+
+    @IsOptional()
+    @ApiProperty( { required: false })
+    @IsString()
+    title: string;
     
 }

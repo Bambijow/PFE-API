@@ -9,17 +9,19 @@ import {Users} from "../users/users.entity";
 export class ResourcesRepository extends Repository<Resources> {
 
     async getResources(getResourceDto: GetResourceDto): Promise<Resources[]> {
-        const { id, active } = getResourceDto;
+        const { id, active, title } = getResourceDto;
         const query = this.createQueryBuilder('resources');
         const activeParam = Number.parseInt(active);
 
         if(id) query.andWhere('resources.id = :id', { id });
         if(activeParam) query.andWhere('resources.active = :active', { active: activeParam > 0 });
+        if(title) query.andWhere('LOWER(resources.title) LIKE :title', { title: `%${title.toLowerCase()}%` });
 
         query.loadAllRelationIds({relations: ['_']});
         try {
             return await query.getMany();
         } catch(error) {
+            console.log(error);
             throw new InternalServerErrorException();
         }
     }
