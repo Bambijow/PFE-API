@@ -1,11 +1,16 @@
-import {IsNumber, IsOptional} from "class-validator";
+import {IsOptional, IsString} from "class-validator";
 import {ApiProperty} from "@nestjs/swagger";
 
 export class GetResourceDto {
 
     @IsOptional()
     @ApiProperty({ required: false })
-    @IsNumber()
-    id: number;
+    @IsString()
+    id: string;
+
+    @IsOptional()
+    @ApiProperty({ required: false })
+    @IsString()
+    active: string;
     
 }

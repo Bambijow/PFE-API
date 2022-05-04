@@ -9,10 +9,13 @@ import {Users} from "../users/users.entity";
 export class ResourcesRepository extends Repository<Resources> {
 
     async getResources(getResourceDto: GetResourceDto): Promise<Resources[]> {
-        const { id } = getResourceDto;
+        const { id, active } = getResourceDto;
         const query = this.createQueryBuilder('resources');
+        const activeParam = Number.parseInt(active);
 
         if(id) query.andWhere('resources.id = :id', { id });
+        if(activeParam) query.andWhere('resources.active = :active', { active: activeParam > 0 });
+
         query.loadAllRelationIds({relations: ['_']});
         try {
             return await query.getMany();

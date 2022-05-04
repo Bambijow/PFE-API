@@ -54,10 +54,10 @@ export class Users {
     @Column()
     age: string;
 
-    @Column({ select: false })
+    @Column()
     salt: string;
 
-    @Column({ select: false })
+    @Column()
     password: string;
 
     @Column({ nullable: true })
