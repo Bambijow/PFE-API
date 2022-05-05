@@ -3,8 +3,8 @@ import {UserRoleEnum} from "./enums/user-role.enum";
 import {UserStatusEnum} from "./enums/user-status.enum";
 
 import * as bcrypt from 'bcrypt';
-import { Resources } from "src/resources/resources.entity";
-import { Likes } from "src/likes/likes.entity";
+import {Resources} from "src/resources/resources.entity";
+import {Likes} from "src/likes/likes.entity";
 
 @Entity()
 export class Users {
@@ -101,5 +101,10 @@ export class Users {
     ban() {
         this.banned_date = `${Date.now()}`;
         this.status = UserStatusEnum.STATUS_BANNED;
+    }
+
+    unban() {
+        this.banned_date = undefined;
+        this.status = UserStatusEnum.STATUS_AUTHORIZED;
     }
 }

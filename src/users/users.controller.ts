@@ -69,6 +69,13 @@ export class UsersController {
         return this.usersService.banUser(banUserDto);
     }
 
+    @Patch('/unban')
+    unbanUser(
+        @Body() banUserDto: BanUserDto,
+    ): Promise<Users> {
+        return this.usersService.unbanUser(banUserDto);
+    }
+
     @Post('picture/upload/:id')
     @UseInterceptors(
         FileInterceptor('file', {

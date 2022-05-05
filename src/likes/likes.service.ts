@@ -20,4 +20,8 @@ export class LikesService {
     async deleteLike(resource: number, user){
         return this.repo.deleteLike(resource, user)
     }
+
+    async getLikedResources(id: string) {
+        return await this.repo.getLikedResources(id);
+    }
 }

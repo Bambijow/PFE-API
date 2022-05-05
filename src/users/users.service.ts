@@ -60,6 +60,12 @@ export class UsersService {
         return this.userRepository.banUser(banUserDto);
     }
 
+    async unbanUser(
+        banUserDto: BanUserDto,
+    ): Promise<Users> {
+        return this.userRepository.unbanUser(banUserDto);
+    }
+
     async editUserEmail(id: string, editEmailDto: EditUserEmailDto) {
         const { email, password } = editEmailDto;
         try {
