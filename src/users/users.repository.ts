@@ -102,4 +102,16 @@ export class UserRepository extends Repository<Users> {
             throw new NotFoundException(`User with id ${user_id} was not found`);
         }
     }
+
+    async unbanUser(banUserDto: BanUserDto) {
+        const { user_id } = banUserDto;
+        try {
+            const user = await this.findOne(user_id);
+            user && user.unban();
+            await this.save(user);
+            return user;
+        } catch(error) {
+            throw new NotFoundException(`User with id ${user_id} was not found`);
+        }
+    }
 }
