@@ -96,6 +96,7 @@ export class UserRepository extends Repository<Users> {
         try {
             const user = await this.findOne(user_id);
             user && user.ban();
+            await this.save(user);
             return user;
         } catch(error) {
             throw new NotFoundException(`User with id ${user_id} was not found`);
