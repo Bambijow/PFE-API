@@ -35,4 +35,16 @@ export class LikesRepository extends Repository<Likes> {
             throw new InternalServerErrorException();
         }
     }
+
+    async getLikedResources(id: string) {
+        const query = this.createQueryBuilder('likes');
+        query.where('likes.user = :id', { id });
+        query.innerJoinAndSelect('likes.resource', 'resources');
+        try {
+            return await query.getMany();
+        } catch(error) {
+            console.log(error);
+            throw new InternalServerErrorException();
+        }
+    }
 }

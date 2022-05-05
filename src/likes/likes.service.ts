@@ -21,4 +21,8 @@ export class LikesService {
         this.repo.delete(like)
         return true;
     }
+
+    async getLikedResources(id: string) {
+        return await this.repo.getLikedResources(id);
+    }
 }

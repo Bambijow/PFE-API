@@ -25,4 +25,9 @@ export class LikesController {
     deleteLike(@Param("id")id: string){
         return this.likesService.deleteLike(parseInt(id))
     }
+
+    @Get('liked/:id')
+    getLikedResources(@Param('id') id: string) {
+        return this.likesService.getLikedResources(id);
+    }
 }
