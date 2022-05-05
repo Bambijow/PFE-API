@@ -21,8 +21,8 @@ export class LikesController {
         return this.likesService.createLike(createLike);
     }
 
-    @Delete(":id")
-    deleteLike(@Param("id")id: string){
-        return this.likesService.deleteLike(parseInt(id))
+    @Delete(":resource/:user")
+    deleteLike(@Param("resource")resource: number, @Param("user") user: number){
+        return this.likesService.deleteLike(resource, user)
     }
 }

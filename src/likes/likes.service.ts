@@ -17,8 +17,7 @@ export class LikesService {
         return this.repo.createLikes(like);
     }
 
-    async deleteLike(like: number){
-        this.repo.delete(like)
-        return true;
+    async deleteLike(resource: number, user){
+        return this.repo.deleteLike(resource, user)
     }
 }

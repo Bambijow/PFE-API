@@ -35,4 +35,12 @@ export class LikesRepository extends Repository<Likes> {
             throw new InternalServerErrorException();
         }
     }
+
+    async deleteLike(user: number, resource: number){
+        return (await this.createQueryBuilder('likes')
+        .delete()
+        .andWhere("likes.resourceId = :resource", {resource})
+        .andWhere("likes.userUserId = :user", {user})
+        .execute()).affected != 0
+    }
 }
