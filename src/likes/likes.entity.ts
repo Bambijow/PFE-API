@@ -1,21 +1,27 @@
+import { Users } from "src/users/users.entity";
 import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {Resources} from "../resources/resources.entity";
 
-@Entity({name: "commentaries"})
-export class Commentaries {
+@Entity()
+export class Likes {
 
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
-    content: string;
+    @ManyToOne(() => Users, (user) => user.likes)
+    user: Users;
 
-    @Column()
-    poster: number;
 
     @ManyToOne(() => Resources, (resource) => resource.commentaries,
         {
             onDelete: 'CASCADE',
         })
-    resource: Resources 
+    resource: Resources
+
+    
+
+    @Column()
+    positive: boolean;
+
+    
 }

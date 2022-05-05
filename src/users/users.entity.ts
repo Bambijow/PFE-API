@@ -4,6 +4,7 @@ import {UserStatusEnum} from "./enums/user-status.enum";
 
 import * as bcrypt from 'bcrypt';
 import { Resources } from "src/resources/resources.entity";
+import { Likes } from "src/likes/likes.entity";
 
 @Entity()
 export class Users {
@@ -76,6 +77,9 @@ export class Users {
 
     @OneToMany(() => Resources, (resource) => resource._, {onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     resources: Resources[];
+
+    @OneToMany(() => Likes, (like) => like.id)
+    likes: Likes[];
 
     async validatePassword(password: string): Promise<boolean> {
         const hash = await bcrypt.hash(password, this.salt);

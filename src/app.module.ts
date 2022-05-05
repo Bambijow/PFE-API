@@ -4,6 +4,7 @@ import { UsersModule } from './users/users.module';
 import { ResourcesModule } from './resources/resources.module';
 import { CommentariesModule } from './commentaries/commentaries.module';
 import { CategoriesModule } from './categories/categories.module';
+import { LikesModule } from './likes/likes.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { CategoriesModule } from './categories/categories.module';
       ResourcesModule,
       CommentariesModule,
       CategoriesModule,
+      LikesModule,
   ],
   controllers: [],
   providers: [],

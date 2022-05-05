@@ -15,7 +15,6 @@ export class CommentariesRepository extends Repository<Commentaries> {
         query.loadAllRelationIds({relations: ['resource']});
         if(id) query.andWhere('commentaries.id = :id', { id });
         if(resource_id) query.andWhere('commentaries.resource = :resource_id', { resource_id });
-        query.innerJoinAndMapOne('commentaries.poster', Users, 'user', 'user.user_id = commentaries.poster');
 
         try {
             return await query.getMany();
