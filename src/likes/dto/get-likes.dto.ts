@@ -10,7 +10,7 @@ export class GetLikesDto{
     @ApiProperty({required: false})
     @IsOptional()
     @IsString()
-    ressource: string
+    resource: string
 
     @ApiProperty({required: false})
     @IsOptional()

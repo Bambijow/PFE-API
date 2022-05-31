@@ -8,7 +8,7 @@ import { Likes } from "./likes.entity";
 export class LikesRepository extends Repository<Likes> {
 
     async getLikes(getLikesDto: GetLikesDto): Promise<Likes[]> {
-        const { user, ressource: resource, positive } = getLikesDto;
+        const { user, resource, positive } = getLikesDto;
         const query = this.createQueryBuilder('likes');
         query.loadAllRelationIds({relations: ['resource', 'user']});
         if(user) query.andWhere('likes.user = :user', { user });
