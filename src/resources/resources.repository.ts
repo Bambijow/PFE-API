@@ -1,9 +1,10 @@
 import {Resources} from "./resources.entity";
-import {EntityRepository, Repository} from "typeorm";
+import {EntityRepository, Repository, UpdateResult} from "typeorm";
 import {CreateResourceDto} from "./dto/create-resource.dto";
 import {InternalServerErrorException} from "@nestjs/common";
 import {GetResourceDto} from "./dto/get-resources.dto";
 import {Users} from "../users/users.entity";
+import { editResourceDto } from "./dto/edit-resource.dto";
 
 @EntityRepository(Resources)
 export class ResourcesRepository extends Repository<Resources> {
@@ -44,6 +45,14 @@ export class ResourcesRepository extends Repository<Resources> {
         } catch (error) {
             throw new InternalServerErrorException()
         }
+    }
+
+    async editResource(resource: editResourceDto) : Promise<UpdateResult>{
+        const query = this.createQueryBuilder("resources");
+        return query.update()
+            .set({title: resource.title, content: resource.content, date: `${Date.now()}`})
+            .where("id = :id", {id: resource.id})
+            .execute();
     }
 
 

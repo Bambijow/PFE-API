@@ -22,6 +22,7 @@ import {AuthGuard} from "@nestjs/passport";
 import {FileInterceptor} from "@nestjs/platform-express";
 import {editFileName, fileFilter} from "./utils/file-upload.utils";
 import {diskStorage} from "multer";
+import { editResourceDto } from './dto/edit-resource.dto';
 
 @Controller('resources')
 @ApiTags('resources')
@@ -76,5 +77,10 @@ export class ResourcesController {
     @Patch('views/increment/:id')
     incrementViews(@Param('id') id: string) {
         return this.resourceService.incrementViews(id);
+    }
+
+    @Patch()
+    async editResource(@Body() resource: editResourceDto){
+        return {success: await this.resourceService.editResource(resource)}
     }
 }

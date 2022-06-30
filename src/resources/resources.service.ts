@@ -4,10 +4,10 @@ import {ResourcesRepository} from "./resources.repository";
 import {Resources} from "./resources.entity";
 import {GetResourceDto} from "./dto/get-resources.dto";
 import {Users} from "../users/users.entity";
+import { editResourceDto } from './dto/edit-resource.dto';
 
 @Injectable()
 export class ResourcesService {
-
     constructor(private resourcesRepository: ResourcesRepository) {}
 
     getResources(getResourceDto: GetResourceDto): Promise<Resources[]> {
@@ -39,5 +39,10 @@ export class ResourcesService {
             await this.resourcesRepository.save(resource);
             return resource;
         } else throw new NotFoundException();
+    }
+
+    async editResource(resource: editResourceDto) : Promise<boolean> {
+         let result = await this.resourcesRepository.editResource(resource);
+         return result.affected == 1
     }
 }
