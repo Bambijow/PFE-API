@@ -2,6 +2,7 @@ import {
     Body,
     Controller, Delete,
     Get,
+    Logger,
     Param,
     Patch,
     Post,
@@ -38,6 +39,7 @@ export class ResourcesController {
     @Post('')
     @UseGuards(AuthGuard('jwt'))
     createResource(@Body() createResourceDto: CreateResourceDto, @GetUser() user: Users): Promise<Resources> {
+        Logger.log("creating resource")
         return this.resourceService.createResource(createResourceDto, user);
     }
 
@@ -81,6 +83,7 @@ export class ResourcesController {
 
     @Patch()
     async editResource(@Body() resource: editResourceDto){
+        Logger.log("editing resource")
         return {success: await this.resourceService.editResource(resource)}
     }
 }

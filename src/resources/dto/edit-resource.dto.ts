@@ -7,7 +7,6 @@ export class editResourceDto {
 
     @ApiProperty()
     @IsNumber()
-    @IsPositive()
     id: number
 
     @ApiProperty()
