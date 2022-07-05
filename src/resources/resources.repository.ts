@@ -49,8 +49,9 @@ export class ResourcesRepository extends Repository<Resources> {
 
     async editResource(resource: editResourceDto) : Promise<UpdateResult>{
         const query = this.createQueryBuilder("resources");
+        console.log(resource);
         return query.update()
-            .set({title: resource.title, content: resource.content, date: `${Date.now()}`})
+            .set({title: resource.title, content: resource.content, date: `${Date.now()}`, filesPath: resource.filesPath})
             .where("id = :id", {id: resource.id})
             .execute();
     }
