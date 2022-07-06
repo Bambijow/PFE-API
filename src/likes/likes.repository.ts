@@ -36,7 +36,9 @@ export class LikesRepository extends Repository<Likes> {
         }
     }
 
-    async deleteLike(user: number, resource: number){
+    async deleteLike(resource: number, user: number){
+        console.log(`user : ${user}, resource : ${resource}`);
+        
         return (await this.createQueryBuilder('likes')
         .delete()
         .andWhere("likes.resourceId = :resource", {resource})

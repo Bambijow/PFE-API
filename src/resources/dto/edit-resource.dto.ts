@@ -7,7 +7,6 @@ export class editResourceDto {
 
     @ApiProperty()
     @IsNumber()
-    @IsPositive()
     id: number
 
     @ApiProperty()
@@ -21,5 +20,5 @@ export class editResourceDto {
     @ApiProperty({ required: false })
     @Type(() => String)
     @IsOptional()
-    filesPath: string[];
+    filesPath?: string[];
 }

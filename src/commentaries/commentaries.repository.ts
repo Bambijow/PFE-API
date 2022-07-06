@@ -4,10 +4,23 @@ import {GetCommentariesDto} from "./dto/get-commentaries.dto";
 import {InternalServerErrorException} from "@nestjs/common";
 import {CreateCommentaryDto} from "./dto/create-commentary.dto";
 import {Users} from "../users/users.entity";
+import { UpdateComDto } from "./dto/update-com.dto";
+import { DeleteCommDto } from "./dto/delete-commentary.dto";
 
 @EntityRepository(Commentaries)
 
 export class CommentariesRepository extends Repository<Commentaries> {
+    async updateCommentary(updatedCom: UpdateComDto) {
+        const query = this.createQueryBuilder("commentaries").update()
+        return query.set({content: updatedCom.content})
+        .where("id = :id", {id: updatedCom.id})
+        .execute();
+    }
+
+    async deleteCommentary(commentaryId: number) {
+        const query = this.createQueryBuilder("commentaries").delete()
+        return query.where("id = :id", {id: commentaryId}).execute()
+    }
 
     async getCommentaries(getCommentariesDto: GetCommentariesDto): Promise<Commentaries[]> {
         const { id, resource_id } = getCommentariesDto;

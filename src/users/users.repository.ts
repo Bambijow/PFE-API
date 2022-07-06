@@ -18,6 +18,12 @@ import {LoginUserDto} from "./dto/login-user.dto";
 
 @EntityRepository(Users)
 export class UserRepository extends Repository<Users> {
+    async getProfilePicturePath(id: number)  {
+        const query = this.createQueryBuilder("user")
+        return query.select()
+            .where("user_id = :userId", { userId: id.toString()})
+            .getOne()
+    }
 
     async getUsers(filterDto: GetUsersFilterDto): Promise<Users[]> {
         const { user_id, first_name, last_name, ban } = filterDto;
