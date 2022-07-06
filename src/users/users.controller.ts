@@ -10,7 +10,7 @@ import {
     UseGuards,
     UseInterceptors
 } from '@nestjs/common';
-import {ApiTags} from "@nestjs/swagger";
+import {ApiParam, ApiTags} from "@nestjs/swagger";
 import {GetUsersFilterDto} from "./dto/get-users-filter.dto";
 import {UsersService} from "./users.service";
 import {Users} from "./users.entity";
@@ -94,12 +94,13 @@ export class UsersController {
         };
     }
 
-    @Get('picture/:path')
-    getUploadedFile(@Param('path') path, @Res() res: Response) {
+    @Get('picture/:id')
+    @ApiParam({name: "id", type: typeof 0})
+    async getUploadedFile(@Param('id') id: number, @Res() res: Response) {
         const fs = require("fs")
-        
-        if(fs.existsSync(`./files/profile_pic/${path}`)){
-            return res.sendFile(path, { root: './files/profile_pic'});
+        const profilePicturePath = await this.usersService.getProfilePicturePath(id)
+        if(fs.existsSync(`./files/profile_pic/${profilePicturePath}`)){
+            return res.sendFile(profilePicturePath, { root: './files/profile_pic'});
         }else{
             return res.sendFile("default.png", { root: './files/profile_pic'});
         }

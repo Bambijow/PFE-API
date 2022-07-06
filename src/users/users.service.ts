@@ -13,6 +13,10 @@ import {EditUserStatusDto} from "./dto/edit-user-status.dto";
 
 @Injectable()
 export class UsersService {
+    async getProfilePicturePath(id: number) : Promise<string> {
+        const user: Users = await this.userRepository.getProfilePicturePath(id)
+        return user.profile_pic
+    }
 
     constructor(
         private userRepository: UserRepository,

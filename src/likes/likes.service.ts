@@ -18,7 +18,10 @@ export class LikesService {
     }
 
     async deleteLike(resource: number, user){
-        return this.repo.deleteLike(resource, user)
+        let success = await this.repo.deleteLike(resource, user)
+        console.log(success);
+        return success
+        
     }
 
     async getLikedResources(id: string) {

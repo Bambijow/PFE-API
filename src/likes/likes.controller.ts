@@ -17,7 +17,7 @@ export class LikesController {
     }
 
     @Post()
-    createCommentary(@Body() createLike: CreateLikesDto): Promise<Likes> {
+    createLike(@Body() createLike: CreateLikesDto): Promise<Likes> {
         return this.likesService.createLike(createLike);
     }
 

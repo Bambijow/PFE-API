@@ -20,5 +20,5 @@ export class editResourceDto {
     @ApiProperty({ required: false })
     @Type(() => String)
     @IsOptional()
-    filesPath: string[];
+    filesPath?: string[];
 }
